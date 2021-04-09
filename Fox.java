@@ -145,17 +145,21 @@ public class Fox extends Animal
     }
         
     /**
-     * Generate a number representing the number of births,
-     * if it can breed.
-     * @return The number of births (may be zero).
+     * Returns the maximum litter size
+     * @return The max litter size.
      */
-    private int breed()
+    public int getMaxLitterSize()
     {
-        int births = 0;
-        if(canBreed() && rand.nextDouble() <= BREEDING_PROBABILITY) {
-            births = rand.nextInt(MAX_LITTER_SIZE) + 1;
-        }
-        return births;
+        return MAX_LITTER_SIZE;
+    }
+    
+    /**
+     * Returns the breeding probability of foxes
+     * @return The breeding probability.
+     */
+    public double getBreedingProbability()
+    {
+        return BREEDING_PROBABILITY;
     }
 
     /**
