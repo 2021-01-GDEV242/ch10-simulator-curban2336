@@ -3,11 +3,13 @@ import java.util.List;
 /**
  * A class representing shared characteristics of animals.
  * 
- * @author David J. Barnes and Michael Kölling
- * @version 2016.02.29 (2)
+ * @author David J. Barnes and Michael Kölling modified by Christopher Urban
+ * @version 04-09-2021
  */
 public abstract class Animal
 {
+    // The age of the animal.
+    private int age;
     // Whether the animal is alive or not.
     private boolean alive;
     // The animal's field.
@@ -26,6 +28,7 @@ public abstract class Animal
         alive = true;
         this.field = field;
         setLocation(location);
+        age = 0;
     }
     
     /**
@@ -80,6 +83,56 @@ public abstract class Animal
         field.place(this, newLocation);
     }
     
+    /**
+     * return the age of the animal
+     */
+    protected int getAge()
+    {
+        return age;
+    }
+    
+    /**
+     * set the age of the animal as the input variable
+     * @param x the age to set
+     */
+    protected void setAge(int x)
+    {
+        age = x;
+    }
+    
+    /**
+     * An animal can breed if it has reached the breeding age.
+     * @return true if the animal can breed, false otherwise.
+     */
+    protected boolean canBreed()
+    {
+        return age >= getBreedingAge();
+    }
+    
+    /**
+     * Return the breeding age of this animal
+     * @return the breeding age of this animal.
+     */
+    abstract protected int getBreedingAge();
+    
+    /**
+     * Increase the age.
+     * This could result in the rabbit's death.
+     */
+    protected void incrementAge()
+    {
+        age++;
+        if(age > getMaxAge()) {
+            setDead();
+        }
+    }
+    
+    /**
+     * Return the max age of this animal
+     * @return the max age of this animal.
+     */
+    abstract protected int getMaxAge();
+
     /**
      * Return the animal's field.
      * @return The animal's field.
