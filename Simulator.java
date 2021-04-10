@@ -22,6 +22,8 @@ public class Simulator
     private static final double FOX_CREATION_PROBABILITY = 0.02;
     // The probability that a rabbit will be created in any given grid position.
     private static final double RABBIT_CREATION_PROBABILITY = 0.08;    
+    // The probability that a bear will be created in any given grid position.
+    private static final double BEAR_CREATION_PROBABILITY = 0.0085;
 
     // List of animals in the field.
     private List<Animal> animals;
@@ -61,6 +63,7 @@ public class Simulator
         view = new SimulatorView(depth, width);
         view.setColor(Rabbit.class, Color.ORANGE);
         view.setColor(Fox.class, Color.BLUE);
+        view.setColor(Bear.class, Color.RED);
         
         // Setup a valid starting point.
         reset();
@@ -84,7 +87,7 @@ public class Simulator
     {
         for(int step = 1; step <= numSteps && view.isViable(field); step++) {
             simulateOneStep();
-            // delay(60);   // uncomment this to run more slowly
+            //delay(60);   // uncomment this to run more slowly
         }
     }
     
@@ -145,6 +148,11 @@ public class Simulator
                     Location location = new Location(row, col);
                     Rabbit rabbit = new Rabbit(true, field, location);
                     animals.add(rabbit);
+                }
+                else if(rand.nextDouble() <= BEAR_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Bear bear = new Bear(true, field, location);
+                    animals.add(bear);
                 }
                 // else leave the location empty.
             }
